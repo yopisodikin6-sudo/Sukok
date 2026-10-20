@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>YOPZ Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#f2f4f7;color:#0f172a}
+.app{min-height:100vh;display:flex;flex-direction:column;max-width:480px;margin:0 auto;background:#f2f4f7}
+.header{height:62px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #e8ecf1;position:sticky;top:0;z-index:10}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:#111827;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff}
+.logo b{font-size:14px;font-weight:800}
+.badge{font-size:11px;font-weight:700;background:#111827;color:#fff;padding:7px 14px;border-radius:20px}
+.content{flex:1;padding:16px 14px 90px 14px}
+.tab{display:none}.tab.active{display:block}
+.label{font-size:11px;font-weight:700;letter-spacing:1.2px;color:#6b7280;margin:0 4px 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.card{background:#fff;border:1px solid #e8ecf1;border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card.active{background:#111827;border-color:#111827;box-shadow:0 8px 20px rgba(17,24,39,.2)}
+.card.active .c-title{color:#fff}.card.active .c-sub{color:rgba(255,255,255,.6)}.card.active .c-icon{background:rgba(255,255,255,.12);color:#fff}
+.c-icon{width:42px;height:42px;background:#f3f4f6;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#111827}
+.c-title{font-size:13px;font-weight:700}.c-sub{font-size:11px;color:#6b7280;margin-top:2px;font-weight:500}
+.paste{background:#fff;border:1px solid #e8ecf1;border-radius:20px;padding:14px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.paste-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.paste-h b{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px}
+.paste-h span{font-size:10px;font-weight:700;background:#f3f4f6;border:1px solid #e5e7eb;padding:4px 10px;border-radius:20px;color:#374151}
+.row{display:flex;gap:8px}
+.input{flex:1;height:46px;padding:0 14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;font-size:13px;font-family:inherit;outline:none}
+.input:focus{background:#fff;border-color:#111827}
+.btn-go{height:46px;padding:0 18px;background:#111827;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;cursor:pointer}
+.preview{margin-top:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px;min-height:86px;display:flex;align-items:center;justify-content:center}
+.preview.has-video{background:#000;padding:0;overflow:hidden;border:none}
+.preview video{width:100%;display:block;max-height:280px}
+.save-btn{margin-top:10px;width:100%;height:44px;background:#111827;color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:700;text-decoration:none}
+.h-list{display:flex;flex-direction:column;gap:10px}
+.h-card{background:#fff;border:1px solid #e8ecf1;border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px}
+.h-icon{width:40px;height:40px;background:#f3f4f6;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.h-info b{font-size:12px;font-weight:700}.h-info span{font-size:11px;color:#6b7280;display:block;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h-actions{margin-left:auto;display:flex;gap:6px}.h-btn{width:34px;height:34px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.settings{display:flex;flex-direction:column;gap:12px}
+.wa-join{background:#111827;border-radius:20px;padding:16px;display:flex;align-items:center;gap:14px;color:#fff;cursor:pointer}
+.wa-join.second{background:#1e293b;border:1px solid rgba(255,255,255,.08)}
+.wa-logo{width:48px;height:48px;background:#25D366;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wa-logo.alt{background:#fff}
+.wa-text b{font-size:14px;font-weight:800;display:block}.wa-text span{font-size:11.5px;color:rgba(255,255,255,.7);line-height:1.4;display:block;margin-top:3px}
+.wa-go{margin-left:auto;width:36px;height:36px;background:rgba(255,255,255,.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.set-item{background:#fff;border:1px solid #e8ecf1;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between}
+.set-left{display:flex;align-items:center;gap:12px}.set-icon{width:40px;height:40px;background:#f3f4f6;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.set-left b{font-size:13px;font-weight:700}.set-left span{font-size:11px;color:#6b7280;display:block;margin-top:1px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:72px;background:#fff;border-top:1px solid #e8ecf1;display:flex;z-index:20}
+.n-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#9ca3af;font-size:11px;font-weight:600;cursor:pointer}
+.n-item.active{color:#111827;font-weight:700}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 16px;border-radius:20px;font-size:12px;font-weight:600;display:none;z-index:50}
+.toast.show{display:block;animation:fade .3s}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header"><div class="logo"><div class="logo-icon"><i data-lucide="download" style="width:20px;height:20px"></i></div><div><b>YOPZ PRO</b></div></div><div class="badge" id="badge">0 VIDEO</div></div>
+
+<div class="content">
+<div class="tab active" id="tab-home">
+<div class="label">SELECT PLATFORM</div>
+<div class="grid">
+<div class="card" id="c-tt" onclick="pick('tt')"><div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.8.1V8.75A6.34 6.34 0 0 0 9.5 8.66a6.34 6.34 0 0 0-6.34 6.33 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.96a8.29 8.29 0 0 0 4.75 1.5V7.95a4.83 4.83 0 0 1-1-.26z"/></svg></div><div><div class="c-title">TikTok</div><div class="c-sub">No watermark</div></div></div>
+<div class="card" id="c-ig" onclick="pick('ig')"><div class="c-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div><div><div class="c-title">Instagram</div><div class="c-sub">Reels HD</div></div></div>
+<div class="card" id="c-fb" onclick="pick('fb')"><div class="c-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3 8h-1.35c-.5 0-.66.28-.66.66V11h2l-.25 2h-1.75v5h-2v-5H9v-2h1.75v-1.5c0-1.7 1.03-2.5 2.5-2.5H16v2z"/></svg></div><div><div class="c-title">Facebook</div><div class="c-sub">Video HD</div></div></div>
+<div class="card" id="c-yt" onclick="pick('yt')"><div class="c-icon"><svg width="18" height="12" viewBox="0 0 28 20" fill="currentColor"><path d="M27.97 3.12a3.5 3.5 0 0 0-2.46-2.46C23.32 0 14 0 14 0S4.68 0 2.49.66A3.5 3.5 0 0 0 .03 3.12C0 5.31 0 10 0 10s0 4.69.03 6.88a3.5 3.5 0 0 0 2.46 2.46C4.68 20 14 20 14 20s9.32 0 11.51-.66a3.5 3.5 0 0 0 2.46-2.46C28 14.69 28 10 28 10s0-4.69-.03-6.88zM11.2 14.4V5.6L18.4 10l-7.2 4.4z"/></svg></div><div><div class="c-title">YouTube</div><div class="c-sub">MP4 & MP3</div></div></div>
+</div>
+<div class="label">PASTE LINK</div>
+<div class="paste"><div class="paste-h"><b id="ptitle"><i data-lucide="link-2" style="width:16px;height:16px"></i> Choose platform</b><span id="pbadge">READY</span></div><div class="row"><input class="input" id="url" placeholder="Select platform first..."><button class="btn-go" id="btnGo" onclick="goDL()"><i data-lucide="download" style="width:16px;height:16px"></i> Go</button></div><div class="preview" id="preview"><div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:#9ca3af"><div style="width:44px;height:44px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;display:flex;align-items:center;justify-content:center"><i data-lucide="play" style="width:18px;height:18px"></i></div><b style="font-size:12px;color:#374151">Preview will appear here</b></div></div><div id="action"></div></div>
+</div>
+
+<div class="tab" id="tab-history"><div class="label">HISTORY</div><div class="h-list" id="hlist"></div></div>
+
+<div class="tab" id="tab-settings">
+<div class="label">COMMUNITY</div>
+<div class="settings">
+<div class="wa-join" onclick="window.open('https://whatsapp.com/channel/0029Vb8nFof3wtbD6Y2haN04','_blank')"><div class="wa-logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M19.05 4.91A9.88 9.88 0 0 0 12.04 2C6.58 2 2.13 6.44 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.44 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zm-7.01 15.24h-.01a8.14 8.14 0 0 1-4.15-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.26-4.38c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.25.85 5.8 2.39a8.15 8.15 0 0 1 2.39 5.8c0 4.51-3.67 8.18-8.19 8.18zm4.49-6.13c-.25-.12-1.47-.73-1.7-.81-.22-.08-.38-.12-.54.12s-.62.81-.77.98-.29.19-.54.06c-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43s-.54-1.29-.74-1.77c-.19-.46-.38-.4-.54-.41l-.46-.01c-.16 0-.43.06-.66.31s-.86.84-.86 2.05.88 2.38 1 2.54c.12.16 1.73 2.64 4.19 3.7.58.25 1.04.4 1.39.51.58.18 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.16-.47-.28z"/></svg></div><div class="wa-text"><b>Channel Utama</b><span>Update fitur & tips harian</span></div><div class="wa-go"><i data-lucide="arrow-up-right" style="width:18px;height:18px;color:#fff"></i></div></div>
+<div class="wa-join second" onclick="window.open('https://whatsapp.com/channel/0029VbD1I9IBKfhwQ6iPmo12','_blank')"><div class="wa-logo alt"><svg width="26" height="26" viewBox="0 0 24 24" fill="#25D366"><path d="M19.05 4.91A9.88 9.88 0 0 0 12.04 2C6.58 2 2.13 6.44 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.44 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zm-7.01 15.24h-.01a8.14 8.14 0 0 1-4.15-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.26-4.38c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.25.85 5.8 2.39a8.15 8.15 0 0 1 2.39 5.8c0 4.51-3.67 8.18-8.19 8.18zm4.49-6.13c-.25-.12-1.47-.73-1.7-.81-.22-.08-.38-.12-.54.12s-.62.81-.77.98-.29.19-.54.06c-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43s-.54-1.29-.74-1.77c-.19-.46-.38-.4-.54-.41l-.46-.01c-.16 0-.43.06-.66.31s-.86.84-.86 2.05.88 2.38 1 2.54c.12.16 1.73 2.64 4.19 3.7.58.25 1.04.4 1.39.51.58.18 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.16-.47-.28z"/></svg></div><div class="wa-text"><b>Channel Kedua</b><span>Info backup & komunitas</span></div><div class="wa-go"><i data-lucide="arrow-up-right" style="width:18px;height:18px;color:#fff"></i></div></div>
+<div class="set-item" id="clearCard"><div class="set-left"><div class="set-icon"><i data-lucide="trash-2" style="width:18px;height:18px"></i></div><div><b>Clear History</b><span id="clearSub">Remove all downloads</span></div></div><button onclick="clearHistory()" style="height:36px;padding:0 16px;background:#111827;color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer">Clear</button></div>
+<div class="set-item"><div class="set-left"><div class="set-icon"><i data-lucide="shield-check" style="width:18px;height:18px"></i></div><div><b>YOPZ Pro</b><span>Version 9.0</span></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="nav">
+<div class="n-item active" id="n-home" onclick="switchTab('home')"><i data-lucide="layout-grid" style="width:22px;height:22px"></i>Home</div>
+<div class="n-item" id="n-history" onclick="switchTab('history')"><i data-lucide="clock-3" style="width:22px;height:22px"></i>History</div>
+<div class="n-item" id="n-settings" onclick="switchTab('settings')"><i data-lucide="settings-2" style="width:22px;height:22px"></i>Settings</div>
+</div>
+</div>
+
+<div class="toast" id="toast">History cleared</div>
+
+<script>
+lucide.createIcons();
+const STORAGE_KEY='yopz_final_history';
+let cur='';let hist=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');update();
+
+function switchTab(t){
+document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+document.querySelectorAll('.n-item').forEach(e=>e.classList.remove('active'));
+document.getElementById('tab-'+t).classList.add('active');
+document.getElementById('n-'+t).classList.add('active');
+if(t==='history')render();
+lucide.createIcons();
+}
+
+function pick(t){
+cur=t;
+document.querySelectorAll('.card').forEach(e=>e.classList.remove('active'));
+document.getElementById('c-'+t).classList.add('active');
+let m={tt:{b:'TIKTOK',t:'TikTok',p:'Paste TikTok link...'},ig:{b:'INSTAGRAM',t:'Instagram',p:'Paste Instagram link...'},fb:{b:'FACEBOOK',t:'Facebook',p:'Paste Facebook link...'},yt:{b:'YOUTUBE',t:'YouTube',p:'Paste YouTube link...'}}[t];
+document.getElementById('pbadge').innerText=m.b;
+document.getElementById('ptitle').innerHTML=`<i data-lucide="link-2" style="width:16px;height:16px"></i> ${m.t}`;
+document.getElementById('url').placeholder=m.p;
+document.getElementById('url').focus();
+lucide.createIcons();
+}
+
+async function goDL(){
+let u=document.getElementById('url').value.trim();
+let prev=document.getElementById('preview');
+let act=document.getElementById('action');
+let btn=document.getElementById('btnGo');
+if(!cur||!u){document.getElementById('url').style.borderColor='#ef4444';return}
+btn.disabled=true;
+prev.classList.add('has-video');
+prev.innerHTML=`<div style="padding:20px;color:#9ca3af;font-size:12px">Processing...</div>`;
+try{
+let r=await fetch('https://www.tikwm.com/api/?url='+encodeURIComponent(u)+'&hd=1'),j=await r.json();
+if(j.data&&j.data.play){
+let it={id:Date.now(),plat:cur,url:u,video:j.data.play,time:new Date().toLocaleDateString('id-ID')};
+hist.unshift(it);
+localStorage.setItem(STORAGE_KEY,JSON.stringify(hist));
+update();
+prev.innerHTML=`<video src="${j.data.play}" controls></video>`;
+act.innerHTML=`<a class="save-btn" href="${j.data.play}" target="_blank"><i data-lucide="download" style="width:16px;height:16px"></i> Save to Device</a>`;
+lucide.createIcons();
+}else{
+prev.classList.remove('has-video');
+prev.innerHTML=`<div style="color:#ef4444;font-size:12px">Failed to fetch</div>`;
+}
+}catch(e){
+prev.classList.remove('has-video');
+prev.innerHTML=`<div style="color:#ef4444;font-size:12px">Network error</div>`;
+}
+btn.disabled=false;
+}
+
+function render(){
+let l=document.getElementById('hlist');
+if(hist.length===0){
+l.innerHTML=`<div style="background:#fff;border:1px dashed #d1d5db;border-radius:16px;padding:32px;display:flex;flex-direction:column;align-items:center;gap:8px"><i data-lucide="clock-3" style="width:24px;height:24px;color:#9ca3af"></i><b style="font-size:12px;color:#374151">No history</b></div>`;
+lucide.createIcons();return;
+}
+l.innerHTML=hist.map(h=>`<div class="h-card"><div class="h-icon"><i data-lucide="film" style="width:16px;height:16px"></i></div><div class="h-info"><b>${h.plat.toUpperCase()} • ${h.time}</b><span>${h.url.slice(0,36)}...</span></div><div class="h-actions"><a class="h-btn" href="${h.video}" target="_blank"><i data-lucide="download" style="width:14px;height:14px"></i></a><div class="h-btn" onclick="del(${h.id})"><i data-lucide="trash-2" style="width:14px;height:14px"></i></div></div></div>`).join('');
+lucide.createIcons();
+}
+
+function del(id){
+hist=hist.filter(h=>h.id!==id);
+localStorage.setItem(STORAGE_KEY,JSON.stringify(hist));
+render();update();
+showToast('Deleted');
+}
+
+function clearHistory(){
+// FIX: langsung hapus tanpa confirm blocking yang bikin gak work di WebView
+hist=[];
+localStorage.removeItem(STORAGE_KEY);
+localStorage.setItem(STORAGE_KEY,'[]');
+render();
+update();
+document.getElementById('clearSub').innerText='Cleared • 0 items';
+showToast('History cleared');
+setTimeout(()=>{document.getElementById('clearSub').innerText='Remove all downloads'},2000);
+}
+
+function showToast(msg){
+let t=document.getElementById('toast');
+t.innerText=msg;
+t.classList.add('show');
+setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+function update(){
+document.getElementById('badge').innerText=hist.length+' VIDEO';
+}
+</script>
+</body>
+</html>
